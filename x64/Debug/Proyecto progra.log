@@ -1,0 +1,5 @@
+﻿  HomePage.cpp
+E:\Carpeta respaldo\Proyecto progra\Proyecto progra\Proyecto progra\HomePage.cpp(196,19): warning C4309: 'inicializando': truncamiento de valor constante
+E:\Carpeta respaldo\Proyecto progra\Proyecto progra\Proyecto progra\HomePage.cpp(198,22): warning C4309: 'inicializando': truncamiento de valor constante
+E:\Carpeta respaldo\Proyecto progra\Proyecto progra\Proyecto progra\HomePage.cpp(199,21): warning C4309: 'inicializando': truncamiento de valor constante
+  Proyecto progra.vcxproj -> E:\Carpeta respaldo\Proyecto progra\Proyecto progra\x64\Debug\Proyecto progra.exe
