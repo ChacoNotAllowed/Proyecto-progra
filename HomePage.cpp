@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cctype>
 #include <cstdlib>
 using namespace std;
@@ -66,7 +66,7 @@ public:
         cout << "Reseña: " << moviereview << endl;
         cout << "----------------------------" << endl;
     }
-   
+
 };
 
 
@@ -106,7 +106,7 @@ void Movies::FillMovies() {
 
 void Movies::PrintMovies() {
 
-    for (int i=0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
 
         cout << "Pelicula " << (i + 1) << ":" << endl;
         movies[i].PrintMovieDetails();
@@ -115,12 +115,12 @@ void Movies::PrintMovies() {
 }
 void Movies::PrintMovie(int option) {
 
-    cout << movies[option-1].getMovieName() << endl;
- 
+    cout << movies[option - 1].getMovieName() << endl;
+
 
 }
 
-class Seat{
+class Seat {
 
 private:
 
@@ -161,21 +161,28 @@ public:
         cout << "Estado : " << seatstate << endl;
         cout << "----------------------------" << endl;
     }
-    
+
 };
 
 class Theater {
 
 private:
-    
+    int wallet = 0;
     Seat seats[12][12];
 
 public:
-
+    
     void FillSeats();
     void PrintSeats();
     void ReserveSeat(int row, int seatnum);
     void BuySeat(int row, int seatnum);
+
+    void setWallet(int newallet) {
+        wallet = newallet;
+    }
+    int getWallet() {
+        return wallet;
+   }
 };
 
 void Theater::FillSeats() {
@@ -193,11 +200,11 @@ void Theater::FillSeats() {
 
 void Theater::PrintSeats() {
 
-    char cuadrado=177;
-    char libre =' ';
+    char cuadrado = 177;
+    char libre = ' ';
     char reservado = 207;
     char comprado = 158;
-    
+
     for (int i = 0; i < 12; i++) {
 
         for (int j = 0; j < 12; j++) {
@@ -206,7 +213,7 @@ void Theater::PrintSeats() {
 
             if (seats[i][j].getSeatState() == 0) {
                 cout << " " << libre << " ";
-            } 
+            }
             else if (seats[i][j].getSeatState() == 1) {
                 cout << " " << reservado << " ";
             }
@@ -216,23 +223,31 @@ void Theater::PrintSeats() {
 
         }
         cout << cuadrado;
-        cout << endl<<endl;
-     
+        cout << endl << endl;
+
     }
     cout << endl;
-    cout << libre << " = Asiento Libre" << endl << reservado << " = Asiento Reservado" << endl << comprado << " = Asiento Comprado" <<endl<< "Cada Asiento tiene un costo de $5 " << endl<<endl;
+    cout << libre << " = Asiento Libre" << endl << reservado << " = Asiento Reservado" << endl << comprado << " = Asiento Comprado" << endl << "Cada Asiento tiene un costo de $5 " << endl << endl;
 
 }
 void Theater::ReserveSeat(int row, int seatnum) {
 
-    seats[row][seatnum].setSeatState(1);
-
+    if (seats[row][seatnum].getSeatState() == 0) {
+        seats[row][seatnum].setSeatState(1);
+        setWallet(getWallet() + 5);
+    }
+    else {
+        cout << "El asiento debe estar libre para reservarlo" << endl;
+    }
 }
 void Theater::BuySeat(int row, int seatnum) {
 
     if (seats[row][seatnum].getSeatState() == 1) {
 
         seats[row][seatnum].setSeatState(2);
+    }
+    else {
+        cout << "El asiento debe estar previamente reservado" << endl;
     }
 
 }
@@ -247,8 +262,11 @@ public:
 
     void FillTheaters();
     void PrintTheater(int theater);
-    void ReserveTheaterSeat(int theaternum,int row, int seatnum);
+    void ReserveTheaterSeat(int theaternum, int row, int seatnum);
     void BuyTheaterSeat(int theaternum, int row, int seatnum);
+    void TheaterWallet(int theaternum) {
+      cout<<"el precio de sus tiquetes es "<< theater[theaternum].getWallet()<<endl;
+    }
 
 };
 
@@ -272,7 +290,7 @@ void Theaters::FillTheaters() {
 
 void Theaters::PrintTheater(int option) {
 
-    theater[option-1].PrintSeats();
+    theater[option - 1].PrintSeats();
 }
 
 
@@ -281,6 +299,7 @@ void Theaters::PrintTheater(int option) {
 class Menu {
 
 public:
+   
     Movies moviesCollection;
     Theaters theatersCollection;
     void ShowMenu();
@@ -289,14 +308,14 @@ public:
 };
 
 
-void Menu::ShowMenu(){
+void Menu::ShowMenu() {
 
     cout << "===== Menu =====" << endl;
     cout << "1. Archivo" << endl;
     cout << "2. Mantenimiento" << endl;
     cout << "3. Reserva" << endl;
-    cout << "4. Venta" << endl<<endl;
-    cout << "Elija una opcion: "<<endl;
+    cout << "4. Venta" << endl << endl;
+    cout << "Elija una opcion: " << endl;
 
 }
 
@@ -326,14 +345,14 @@ void Menu::PrintAbout() {
     cout << endl;
 }
 
-void Menu::RunMenu(int option) {   
+void Menu::RunMenu(int option) {
 
     switch (option) {
 
     case 1:
 
         cout << "1. Acerca de" << endl;
-        cout << "2. Salir" << endl<<endl;
+        cout << "2. Salir" << endl << endl;
         cout << "Elija una opcion: " << endl;
         int option2;
         cin >> option2;
@@ -365,7 +384,7 @@ void Menu::RunMenu(int option) {
         cout << "===== Mantenimiento =====" << endl;
         cout << "1. Peliculas" << endl;
         cout << "2. Salas" << endl;
-        cout << "3. Horarios " << endl<<endl;
+        cout << "3. Horarios " << endl << endl;
         cout << "Elija una opcion: " << endl;
 
         int option3;
@@ -381,7 +400,7 @@ void Menu::RunMenu(int option) {
             moviesCollection.PrintMovies();
             break;
         case 2:
-            
+
             cout << "===== Salas =====" << endl;
             cout << "1. Sala 1" << endl;
             cout << "2. Sala 2" << endl;
@@ -393,7 +412,7 @@ void Menu::RunMenu(int option) {
             cout << endl;
             system("cls");
 
-            cout << "===== Sala "<<option4<<" =====" << endl<<endl;
+            cout << "===== Sala " << option4 << " =====" << endl << endl;
             theatersCollection.PrintTheater(option4);
             break;
 
@@ -408,13 +427,13 @@ void Menu::RunMenu(int option) {
 
         break;
 
-        
+
     case 3:
 
         cout << "===== Reserva =====" << endl;
         cout << "1. Deadpool vs Wolverine" << endl;
         cout << "2. Mi villano favorito 4" << endl;
-        cout << "3. Intensamente 2" << endl <<endl<<"Recuerde que cada pelicula tiene una sala predeterminada" << endl;
+        cout << "3. Intensamente 2" << endl << endl << "Recuerde que cada pelicula tiene una sala predeterminada" << endl;
         cout << "Elija una Pelicula: " << endl;
         int movieop;
         cin >> movieop;
@@ -431,12 +450,13 @@ void Menu::RunMenu(int option) {
         int seatnum;
         cin >> seatnum; cout << endl;
         system("cls");
-        theatersCollection.ReserveTheaterSeat(movieop - 1, toupper(seatrow) -'A', seatnum - 1);
+        theatersCollection.ReserveTheaterSeat(movieop - 1, toupper(seatrow) - 'A', seatnum - 1);
 
         moviesCollection.PrintMovie(movieop);
         cout << "===== Sala " << movieop << " =====" << endl << endl;
         theatersCollection.PrintTheater(movieop);
-        
+        theatersCollection.TheaterWallet(movieop-1);
+
 
         break;
 
@@ -486,7 +506,7 @@ void Menu::RunMenu(int option) {
 
                 for (int j = 0; j < 12; j++) {
 
-                    theatersCollection.BuyTheaterSeat(movieop2-1, i, j);                 
+                    theatersCollection.BuyTheaterSeat(movieop2 - 1, i, j);
                 }
             }
 
@@ -527,6 +547,7 @@ int main() {
         cin >> option;
         cout << endl;
         menu.RunMenu(option);
-    } while (option < 5 && option > 0) ;
+    } while (option < 5 && option > 0);
 
+}
 }
